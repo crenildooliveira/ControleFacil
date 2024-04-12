@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionar Pedidos</title>
+    <link rel="stylesheet" href="adicionarpedidos.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Adicionar Pedido</h2>
+        <form id="pedidoForm">
+            <label for="pedidosFeitos">Pedidos Feitos:</label><br>
+            <input type="text" id="pedidosFeitos" name="pedidosFeitos"><br>
+            <label for="nome">Nome:</label><br>
+            <input type="text" id="nome" name="nome"><br>
+            <label for="dataEntrega">Data de Entrega:</label><br>
+            <input type="date" id="dataEntrega" name="dataEntrega"><br>
+            <label for="quantidadeItens">Quantidade de Itens:</label><br>
+            <input type="number" id="quantidadeItens" name="quantidadeItens"><br>
+            <label for="valor">Valor:</label><br>
+            <input type="number" id="valor" name="valor" step="0.01" min="0"><br>
+            <label for="porcentagemPaga">Porcentagem Paga:</label><br>
+            <input type="text" id="porcentagemPaga" name="porcentagemPaga"><br>
+            <label for="numeroTelefone">Número de Telefone:</label><br>
+            <input type="text" id="numeroTelefone" name="numeroTelefone"><br>
+            <label for="informacoes">Informações:</label><br>
+            <textarea id="informacoes" name="informacoes"></textarea><br><br>
+            <label for="imagem">imagem:</label><br>
+            <textarea id="imagem" name="imagem"></textarea><br><br>
+            <input type="submit" value="Adicionar">
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('pedidoForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita o envio padrão do formulário
+            
+            // Recupera os valores do formulário
+            var pedidosFeitos = document.getElementById('pedidosFeitos').value;
+            var nome = document.getElementById('nome').value;
+            var dataEntrega = document.getElementById('dataEntrega').value;
+            var quantidadeItens = document.getElementById('quantidadeItens').value;
+            var valor = document.getElementById('valor').value;
+            var porcentagemPaga = document.getElementById('porcentagemPaga').value;
+            var numeroTelefone = document.getElementById('numeroTelefone').value;
+            var informacoes = document.getElementById('informacoes').value;
+            var imagem = document.getElementById('imagem').value;
+
+            // Aqui você pode enviar os dados para o banco de dados usando AJAX ou outra técnica de sua escolha
+            // Exemplo de envio usando Fetch API
+            fetch('/adicionarpedidos', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    nome: nome,
+                    dataEntrega: dataEntrega,
+                    quantidadeItens: quantidadeItens,
+                    valor: valor,
+                    porcentagemPaga: porcentagemPaga,
+                    numeroTelefone: numeroTelefone,
+                    informacoes: informacoes,
+                    imagem: imagem
+                })
+            })
+
+            .then(response => {
+                // Aqui você pode lidar com a resposta do servidor, se necessário
+                console.log('Pedido adicionado com sucesso!');
+            })
+            .catch(error => {
+                // Se ocorrer um erro ao enviar os dados, você pode lidar com ele aqui
+                console.error('Erro ao adicionar pedido:', error);
+            });
+        });
+    </script>
+</body>
+</html>

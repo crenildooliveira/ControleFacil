@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemplo de Estilização</title>
+    <link rel="stylesheet" href="pedidos.css">
+</head>
+<body>
+    <div class="container">
+        <div class="viewTop">
+            <button class="button" onclick="handleAdicionar()">Adicionar Pedido</button>
+        </div>
+        <div id="pedidosContainer" class="contentContainer">
+            <!-- Pedidos serão adicionados dinamicamente aqui -->
+        </div>
+    </div>
+
+    <script>
+        // Função para carregar os pedidos quando a página é carregada
+        window.onload = function() {
+            carregarPedidos();
+        };
+
+        // Função para carregar os pedidos
+        function carregarPedidos() {
+            fetch('/pedidos', {
+                method: 'GET'
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro ao carregar os pedidos');
+                }
+                return response.json();
+            })
+            .then(pedidos => {
+                // Limpa o conteúdo atual dos pedidosContainer
+                var pedidosContainer = document.getElementById('pedidosContainer');
+                pedidosContainer.innerHTML = '';
+
+                // Adiciona cada pedido ao pedidosContainer
+                pedidos.forEach(function(pedido) {
+                    var pedidoHTML = `
+                        <div class="pedido">
+                            <p><strong>Pedidos Feitos:</strong> ${pedido.pedidosFeitos}</p>
+                            <p><strong>Nome:</strong> ${pedido.nome}</p>
+                            <p><strong>Data de Entrega:</strong> ${new Date(pedido.dataEntrega).toLocaleDateString('pt-BR')}</p>
+                            <p><strong>Quantidade de Itens:</strong> ${pedido.quantidadeItens}</p>
+                            <p><strong>Valor:</strong> R$ ${pedido.valor.toFixed(2)}</p>
+                            <p><strong>Porcentagem Paga:</strong> ${pedido.porcentagemPaga}%</p>
+                            <p><strong>Número de Telefone:</strong> ${pedido.numeroTelefone}</p>
+                            <p><strong>Informações:</strong> ${pedido.informacoes}</p>
+                            <p><strong>imagem:</strong> ${pedido.imagem}</p>
+                        </div>
+                    `;
+
+                    pedidosContainer.innerHTML += pedidoHTML;
+                });
+            })
+            .catch(error => {
+                console.error('Erro ao carregar os pedidos:', error);
+            });
+        }
+
+        // Função para lidar com o clique no botão "Adicionar Pedido"
+        function handleAdicionar() {
+            // Aqui você pode redirecionar o usuário para a página de adicionar pedidos
+            window.location.href = '/adicionarpedidos';
+        }
+    </script>
+</body>
+</html>

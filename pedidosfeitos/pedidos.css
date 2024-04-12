@@ -1,0 +1,30 @@
+/* Estilos para os pedidos */
+.pedido {
+    border: 2px solid black; /* Borda preta */
+    border-radius: 8px; /* Borda arredondada */
+    padding: 20px; /* Espaçamento interno */
+    margin-bottom: 20px; /* Espaçamento inferior */
+    text-align: center; /* Alinhamento centralizado do conteúdo */
+}
+
+/* Estilos para o botão */
+.button {
+    background-color: #007bff; /* Cor de fundo azul */
+    color: white; /* Cor do texto branco */
+    padding: 10px 20px; /* Espaçamento interno */
+    border: none; /* Sem borda */
+    border-radius: 5px; /* Borda arredondada */
+    cursor: pointer; /* Cursor de apontar */
+}
+
+/* Estilos para o contêiner */
+.container {
+    max-width: 800px; /* Largura máxima */
+    margin: 0 auto; /* Centralizar na tela */
+    padding: 20px; /* Espaçamento interno */
+}
+
+/* Estilos para o contêiner dos pedidos */
+.contentContainer {
+    margin-top: 20px; /* Espaçamento superior */
+}
